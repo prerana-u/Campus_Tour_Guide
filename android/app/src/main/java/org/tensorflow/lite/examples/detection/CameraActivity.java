@@ -16,6 +16,8 @@
 
 package org.tensorflow.lite.examples.detection;
 
+import static com.google.android.material.bottomsheet.BottomSheetBehavior.STATE_EXPANDED;
+
 import android.Manifest;
 import android.app.Fragment;
 import android.content.Context;
@@ -38,7 +40,10 @@ import android.os.Trace;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
 
+import android.transition.AutoTransition;
+import android.transition.TransitionManager;
 import android.util.Size;
 import android.view.Surface;
 import android.view.View;
@@ -47,6 +52,7 @@ import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CompoundButton;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -88,7 +94,7 @@ public abstract class CameraActivity extends AppCompatActivity
   private Runnable imageConverter;
   protected ArrayList<String> modelStrings = new ArrayList<String>();
 
-  private LinearLayout bottomSheetLayout;
+  private LinearLayout bottomSheetLayout,layout1;
   private LinearLayout gestureLayout;
   private BottomSheetBehavior<LinearLayout> sheetBehavior;
 
@@ -102,6 +108,10 @@ public abstract class CameraActivity extends AppCompatActivity
   int currentDevice = -1;
   int currentModel = -1;
   int currentNumThreads = -1;
+
+  ImageButton arrow,arrow1;
+  LinearLayout hiddenView,hiddenView1;
+  CardView cardView,cardView1;
 
   ArrayList<String> deviceStrings = new ArrayList<String>();
 
@@ -121,6 +131,53 @@ public abstract class CameraActivity extends AppCompatActivity
     } else {
       requestPermission();
     }
+    cardView = findViewById(R.id.base_cardview);
+    arrow = findViewById(R.id.arrow_button);
+    hiddenView = findViewById(R.id.hidden_view);
+    cardView1 = findViewById(R.id.base_cardview1);
+    arrow1 = findViewById(R.id.arrow_button1);
+    hiddenView1 = findViewById(R.id.hidden_view1);
+
+    //dropdown code
+    arrow.setOnClickListener(view -> {
+      // If the CardView is already expanded, set its visibility
+      // to gone and change the expand less icon to expand more.
+      if (hiddenView.getVisibility() == View.VISIBLE) {
+        // The transition of the hiddenView is carried out by the TransitionManager class.
+        // Here we use an object of the AutoTransition Class to create a default transition
+        TransitionManager.beginDelayedTransition(cardView, new AutoTransition());
+        hiddenView.setVisibility(View.GONE);
+        arrow.setImageResource(R.drawable.baseline_keyboard_arrow_down_24);
+      }
+
+      // If the CardView is not expanded, set its visibility to
+      // visible and change the expand more icon to expand less.
+      else {
+        TransitionManager.beginDelayedTransition(cardView, new AutoTransition());
+        hiddenView.setVisibility(View.VISIBLE);
+        arrow.setImageResource(R.drawable.baseline_keyboard_arrow_up_24);
+      }
+    });
+    arrow1.setOnClickListener(view -> {
+      // If the CardView is already expanded, set its visibility
+      // to gone and change the expand less icon to expand more.
+      if (hiddenView1.getVisibility() == View.VISIBLE) {
+        // The transition of the hiddenView is carried out by the TransitionManager class.
+        // Here we use an object of the AutoTransition Class to create a default transition
+        TransitionManager.beginDelayedTransition(cardView1, new AutoTransition());
+        hiddenView1.setVisibility(View.GONE);
+        arrow1.setImageResource(R.drawable.baseline_keyboard_arrow_down_24);
+      }
+
+      // If the CardView is not expanded, set its visibility to
+      // visible and change the expand more icon to expand less.
+      else {
+        TransitionManager.beginDelayedTransition(cardView1, new AutoTransition());
+        hiddenView1.setVisibility(View.VISIBLE);
+        arrow1.setImageResource(R.drawable.baseline_keyboard_arrow_up_24);
+      }
+    });
+
 
     threadsTextView = findViewById(R.id.threads);
     currentNumThreads = Integer.parseInt(threadsTextView.getText().toString().trim());
@@ -146,9 +203,11 @@ public abstract class CameraActivity extends AppCompatActivity
             });
 
     bottomSheetLayout = findViewById(R.id.bottom_sheet_layout);
+   // layout1=findViewById(R.id.off_details);
     gestureLayout = findViewById(R.id.gesture_layout);
     sheetBehavior = BottomSheetBehavior.from(bottomSheetLayout);
     bottomSheetArrowImageView = findViewById(R.id.bottom_sheet_arrow);
+    currentModel=defaultModelIndex;
     modelView = findViewById((R.id.model_list));
 
     modelStrings = getModelStrings(getAssets(), ASSET_PATH);
@@ -185,6 +244,7 @@ public abstract class CameraActivity extends AppCompatActivity
         });
     sheetBehavior.setHideable(false);
 
+
     sheetBehavior.setBottomSheetCallback(
         new BottomSheetBehavior.BottomSheetCallback() {
           @Override
@@ -192,7 +252,7 @@ public abstract class CameraActivity extends AppCompatActivity
             switch (newState) {
               case BottomSheetBehavior.STATE_HIDDEN:
                 break;
-              case BottomSheetBehavior.STATE_EXPANDED:
+              case STATE_EXPANDED:
                 {
                   bottomSheetArrowImageView.setImageResource(R.drawable.baseline_keyboard_arrow_down_24);
                 }
@@ -216,11 +276,12 @@ public abstract class CameraActivity extends AppCompatActivity
 
      frameValueTextView = findViewById(R.id.estab_info);
      titleTextView=findViewById(R.id.title);
-//    cropValueTextView = findViewById(R.id.crop_info);
-//    inferenceTimeTextView = findViewById(R.id.inference_info);
+     cropValueTextView = findViewById(R.id.floor_info);
+   //
+    // inferenceTimeTextView = findViewById(R.id.inference_info);
 
-    plusImageView.setOnClickListener(this);
-    minusImageView.setOnClickListener(this);
+//    plusImageView.setOnClickListener(this);
+//    minusImageView.setOnClickListener(this);
   }
 
 
@@ -601,18 +662,22 @@ public abstract class CameraActivity extends AppCompatActivity
   protected void showFrameInfo(String frameInfo) {
 
     titleTextView.setText(frameInfo);
-    if(frameInfo=="Central Block")
+    if(frameInfo.equals("Central Block"))
     {
-      frameValueTextView.setText("N/A");
+      frameValueTextView.setText("2010");
+     // cardView.setVisibility(View.INVISIBLE);
+      cropValueTextView.setText("10");
     }
     else
     {
       frameValueTextView.setText("1969");
+      cropValueTextView.setText("2");
+     // cardView.setVisibility(View.VISIBLE);
     }
   }
 
-  protected void showCropInfo(String cropInfo) {
-
+  protected void showCropInfo() {
+    sheetBehavior.setState(STATE_EXPANDED);
   }
 
   protected void showInference(String inferenceTime) {

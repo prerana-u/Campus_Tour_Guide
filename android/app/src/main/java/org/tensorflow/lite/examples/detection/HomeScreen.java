@@ -157,8 +157,8 @@ public class HomeScreen extends AppCompatActivity {
                         if (location == null) {
                             requestNewLocationData();
                         } else {
-                            Toast.makeText(getApplicationContext(),location.getLatitude() + "",Toast.LENGTH_SHORT).show();
-                            Toast.makeText(getApplicationContext(),location.getLongitude() + "",Toast.LENGTH_SHORT).show();
+                          //  Toast.makeText(getApplicationContext(),location.getLatitude() + "",Toast.LENGTH_SHORT).show();
+                          //  Toast.makeText(getApplicationContext(),location.getLongitude() + "",Toast.LENGTH_SHORT).show();
                             lat=String.valueOf(location.getLatitude());
                             long1=String.valueOf(location.getLongitude());
 

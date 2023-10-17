@@ -188,6 +188,7 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
             }
 
 
+          //  detector.useCPU();
             if (device.equals("CPU")) {
                 detector.useCPU();
             } else if (device.equals("GPU")) {
@@ -282,6 +283,9 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
                             }
 
                         }
+                        else {
+                            Toast.makeText(getApplicationContext(),"Identifying. Please wait...",Toast.LENGTH_LONG).show();
+                        }
 
 
 
@@ -292,8 +296,9 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
                     if(bestResult != null && bestResult.getConfidence()>0.7f)
                     {
                         //showFrameInfo(title);
+
                         title=bestResult.getTitle();
-                       // Thread.sleep(2000);
+                        showCropInfo();
 
                     }
 
@@ -302,8 +307,8 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
                             new Runnable() {
                                 @Override
                                 public void run() {
+
                                     showFrameInfo(title);
-                                    showCropInfo(cropCopyBitmap.getWidth() + "x" + cropCopyBitmap.getHeight());
                                     showInference(lastProcessingTimeMs + "ms");
 //                                    try {
 //                                        Thread.sleep(5000);
@@ -312,6 +317,12 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
 //                                    }
                                 }
                             });
+
+                    try {
+                        Thread.sleep(3000);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
                 });
     }
 
