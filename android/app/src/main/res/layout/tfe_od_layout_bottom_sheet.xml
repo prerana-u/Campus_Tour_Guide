@@ -21,19 +21,14 @@
         android:paddingTop="10dp"
         android:paddingBottom="20dp">
 
-        <ImageView
-            android:id="@+id/bottom_sheet_arrow"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:src="@drawable/baseline_keyboard_arrow_up_24" />
+
 
         <TextView
             android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="N/A"
-            android:textColor="#000000"
+            android:textColor="#197B80"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="0dp"
             android:textSize="24sp"
@@ -52,6 +47,7 @@
             android:layout_marginTop="10dp"
             android:textSize="16sp"
             android:text="Established"
+            android:layout_marginLeft="10dp"
             android:textColor="@android:color/black" />
 
         <TextView
@@ -62,6 +58,7 @@
             android:gravity="right"
             android:textSize="16sp"
             android:text=""
+            android:layout_marginRight="10dp"
             android:textColor="@android:color/black" />
     </LinearLayout>
 
@@ -76,6 +73,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:text="Floors"
+            android:layout_marginLeft="10dp"
             android:textSize="16sp"
             android:textColor="@android:color/black" />
 
@@ -86,6 +84,7 @@
             android:layout_marginTop="10dp"
             android:gravity="right"
             android:textSize="16sp"
+            android:layout_marginRight="10dp"
             android:text=""
             android:textColor="@android:color/black" />
     </LinearLayout>
@@ -140,7 +139,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:text="Important Offices"
-                    android:textColor="#000000"
+                    android:textColor="#197B80"
                     android:textSize="18sp"
                     android:fontFamily="@font/inter_semibold"
                     app:layout_constraintBottom_toBottomOf="@+id/fixed_layout"
@@ -195,7 +194,8 @@
                         android:fontFamily="@font/inter"
                         android:gravity="left"
                         android:text="Office"
-                        android:textColor="@android:color/black"
+                        android:layout_marginLeft="20dp"
+                        android:textColor="#424242"
                         android:textSize="16sp"
                         android:textStyle="bold" />
 
@@ -209,7 +209,9 @@
                         android:textStyle="bold"
                         android:fontFamily="@font/inter"
                         android:text="Room No."
-                        android:textColor="@android:color/black" />
+                        android:textColor="#424242"
+                        android:layout_marginRight="20dp"
+                        />
                 </LinearLayout>
 
                 <!-- Child LinearLayout 2 -->
@@ -398,7 +400,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:text="Departments"
-                    android:textColor="#000000"
+                    android:textColor="#197B80"
                     android:textSize="18sp"
                     android:fontFamily="@font/inter_semibold"
                     app:layout_constraintBottom_toBottomOf="@+id/fixed_layout1"
@@ -451,10 +453,12 @@
                         android:layout_marginTop="10dp"
                         android:textSize="16sp"
                         android:text="Department"
+                        android:layout_marginLeft="20dp"
                         android:fontFamily="@font/inter"
                         android:gravity="left"
+
                         android:textStyle="bold"
-                        android:textColor="@android:color/black" />
+                        android:textColor="#424242" />
 
                     <TextView
 
@@ -466,7 +470,8 @@
                         android:textStyle="bold"
                         android:fontFamily="@font/inter"
                         android:text="Room No."
-                        android:textColor="@android:color/black" />
+                        android:layout_marginRight="20dp"
+                        android:textColor="#424242" />
                 </LinearLayout>
 
                 <!-- Child LinearLayout 2 -->

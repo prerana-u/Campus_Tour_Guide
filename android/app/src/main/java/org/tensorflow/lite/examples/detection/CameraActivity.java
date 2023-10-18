@@ -206,7 +206,7 @@ public abstract class CameraActivity extends AppCompatActivity
    // layout1=findViewById(R.id.off_details);
     gestureLayout = findViewById(R.id.gesture_layout);
     sheetBehavior = BottomSheetBehavior.from(bottomSheetLayout);
-    bottomSheetArrowImageView = findViewById(R.id.bottom_sheet_arrow);
+   // bottomSheetArrowImageView = findViewById(R.id.bottom_sheet_arrow);
     currentModel=defaultModelIndex;
     modelView = findViewById((R.id.model_list));
 
@@ -226,53 +226,53 @@ public abstract class CameraActivity extends AppCompatActivity
               }
             });
 
-    ViewTreeObserver vto = gestureLayout.getViewTreeObserver();
-    vto.addOnGlobalLayoutListener(
-        new ViewTreeObserver.OnGlobalLayoutListener() {
-          @Override
-          public void onGlobalLayout() {
-            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
-              gestureLayout.getViewTreeObserver().removeGlobalOnLayoutListener(this);
-            } else {
-              gestureLayout.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-            }
-            //                int width = bottomSheetLayout.getMeasuredWidth();
-            int height = gestureLayout.getMeasuredHeight();
+//    ViewTreeObserver vto = gestureLayout.getViewTreeObserver();
+//    vto.addOnGlobalLayoutListener(
+//        new ViewTreeObserver.OnGlobalLayoutListener() {
+//          @Override
+//          public void onGlobalLayout() {
+//            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
+//              gestureLayout.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+//            } else {
+//              gestureLayout.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+//            }
+//            //                int width = bottomSheetLayout.getMeasuredWidth();
+//            int height = gestureLayout.getMeasuredHeight();
+//
+//            sheetBehavior.setPeekHeight(height);
+//          }
+//        });
+     sheetBehavior.setHideable(false);
 
-            sheetBehavior.setPeekHeight(height);
-          }
-        });
-    sheetBehavior.setHideable(false);
 
-
-    sheetBehavior.setBottomSheetCallback(
-        new BottomSheetBehavior.BottomSheetCallback() {
-          @Override
-          public void onStateChanged(@NonNull View bottomSheet, int newState) {
-            switch (newState) {
-              case BottomSheetBehavior.STATE_HIDDEN:
-                break;
-              case STATE_EXPANDED:
-                {
-                  bottomSheetArrowImageView.setImageResource(R.drawable.baseline_keyboard_arrow_down_24);
-                }
-                break;
-              case BottomSheetBehavior.STATE_COLLAPSED:
-                {
-                  bottomSheetArrowImageView.setImageResource(R.drawable.baseline_keyboard_arrow_up_24);
-                }
-                break;
-              case BottomSheetBehavior.STATE_DRAGGING:
-                break;
-              case BottomSheetBehavior.STATE_SETTLING:
-                bottomSheetArrowImageView.setImageResource(R.drawable.baseline_keyboard_arrow_up_24);
-                break;
-            }
-          }
-
-          @Override
-          public void onSlide(@NonNull View bottomSheet, float slideOffset) {}
-        });
+////    sheetBehavior.setBottomSheetCallback(
+////        new BottomSheetBehavior.BottomSheetCallback() {
+////          @Override
+////          public void onStateChanged(@NonNull View bottomSheet, int newState) {
+////            switch (newState) {
+////              case BottomSheetBehavior.STATE_HIDDEN:
+////                break;
+////              case STATE_EXPANDED:
+////                {
+////                  bottomSheetArrowImageView.setImageResource(R.drawable.baseline_keyboard_arrow_down_24);
+////                }
+////                break;
+////              case BottomSheetBehavior.STATE_COLLAPSED:
+////                {
+////                  bottomSheetArrowImageView.setImageResource(R.drawable.baseline_keyboard_arrow_up_24);
+////                }
+////                break;
+////              case BottomSheetBehavior.STATE_DRAGGING:
+////                break;
+////              case BottomSheetBehavior.STATE_SETTLING:
+////                bottomSheetArrowImageView.setImageResource(R.drawable.baseline_keyboard_arrow_up_24);
+////                break;
+////            }
+////          }
+//
+//          @Override
+//          public void onSlide(@NonNull View bottomSheet, float slideOffset) {}
+//        });
 
      frameValueTextView = findViewById(R.id.estab_info);
      titleTextView=findViewById(R.id.title);
