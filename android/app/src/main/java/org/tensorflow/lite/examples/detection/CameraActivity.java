@@ -41,6 +41,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.transition.AutoTransition;
 import android.transition.TransitionManager;
@@ -63,9 +65,12 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.tensorflow.lite.examples.detection.env.ImageUtils;
 import org.tensorflow.lite.examples.detection.env.Logger;
+import org.tensorflow.lite.examples.detection.data.DatabaseHandler;
+import org.tensorflow.lite.examples.detection.models.Building_Info;
 
 public abstract class CameraActivity extends AppCompatActivity
     implements OnImageAvailableListener,
@@ -96,13 +101,15 @@ public abstract class CameraActivity extends AppCompatActivity
 
   private LinearLayout bottomSheetLayout,layout1;
   private LinearLayout gestureLayout;
+  public String type="";
   private BottomSheetBehavior<LinearLayout> sheetBehavior;
-
+  DatabaseHandler db;
   protected TextView frameValueTextView, titleTextView, cropValueTextView, inferenceTimeTextView;
   protected ImageView bottomSheetArrowImageView;
   private ImageView plusImageView, minusImageView;
   protected ListView deviceView;
   protected TextView threadsTextView;
+  RecyclerView rv,rv1;
   protected ListView modelView;
   /** Current indices of device and model. */
   int currentDevice = -1;
@@ -112,8 +119,10 @@ public abstract class CameraActivity extends AppCompatActivity
   ImageButton arrow,arrow1;
   LinearLayout hiddenView,hiddenView1;
   CardView cardView,cardView1;
-
+  ArrayList<ListData> modelArrayList;
   ArrayList<String> deviceStrings = new ArrayList<String>();
+
+  MyListAdapter ml;
 
   @Override
   protected void onCreate(final Bundle savedInstanceState) {
@@ -125,6 +134,15 @@ public abstract class CameraActivity extends AppCompatActivity
     Toolbar toolbar = findViewById(R.id.toolbar);
     setSupportActionBar(toolbar);
     getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+    db= new DatabaseHandler(this);
+    rv = findViewById(R.id.officedatarv);
+    rv1=findViewById(R.id.officedatarv1);
+    rv.setNestedScrollingEnabled(false);
+    rv.setHasFixedSize(false);
+    rv1.setNestedScrollingEnabled(false);
+    rv1.setHasFixedSize(false);
+    modelArrayList = new ArrayList<ListData>();
 
     if (hasPermission()) {
       setFragment();
@@ -148,6 +166,7 @@ public abstract class CameraActivity extends AppCompatActivity
         TransitionManager.beginDelayedTransition(cardView, new AutoTransition());
         hiddenView.setVisibility(View.GONE);
         arrow.setImageResource(R.drawable.baseline_keyboard_arrow_down_24);
+
       }
 
       // If the CardView is not expanded, set its visibility to
@@ -155,18 +174,21 @@ public abstract class CameraActivity extends AppCompatActivity
       else {
         TransitionManager.beginDelayedTransition(cardView, new AutoTransition());
         hiddenView.setVisibility(View.VISIBLE);
+        hiddenView1.setVisibility(View.GONE);
+        type="office";
         arrow.setImageResource(R.drawable.baseline_keyboard_arrow_up_24);
       }
     });
+
     arrow1.setOnClickListener(view -> {
-      // If the CardView is already expanded, set its visibility
-      // to gone and change the expand less icon to expand more.
+
       if (hiddenView1.getVisibility() == View.VISIBLE) {
         // The transition of the hiddenView is carried out by the TransitionManager class.
         // Here we use an object of the AutoTransition Class to create a default transition
         TransitionManager.beginDelayedTransition(cardView1, new AutoTransition());
         hiddenView1.setVisibility(View.GONE);
         arrow1.setImageResource(R.drawable.baseline_keyboard_arrow_down_24);
+
       }
 
       // If the CardView is not expanded, set its visibility to
@@ -174,7 +196,9 @@ public abstract class CameraActivity extends AppCompatActivity
       else {
         TransitionManager.beginDelayedTransition(cardView1, new AutoTransition());
         hiddenView1.setVisibility(View.VISIBLE);
+        hiddenView.setVisibility(View.GONE);
         arrow1.setImageResource(R.drawable.baseline_keyboard_arrow_up_24);
+        type="department";
       }
     });
 
@@ -680,8 +704,27 @@ public abstract class CameraActivity extends AppCompatActivity
     sheetBehavior.setState(STATE_EXPANDED);
   }
 
-  protected void showInference(String inferenceTime) {
+  protected void showInference(String blockname) {
+    List<Building_Info> data = db.getAllBuilding_Info(blockname.toLowerCase(),type);
+    modelArrayList.clear();
+    for (Building_Info cn : data) {
 
+     // Toast.makeText(getApplicationContext(),cn.getName(),Toast.LENGTH_SHORT).show();
+      modelArrayList.add(new ListData(cn.getName(),cn.getRoomNo()));
+      ml = new MyListAdapter( modelArrayList);
+
+      LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
+      if (type.equals("office"))
+      {
+        rv.setLayoutManager(linearLayoutManager);
+        rv.setAdapter(ml);
+      }
+      else {
+        rv1.setLayoutManager(linearLayoutManager);
+        rv1.setAdapter(ml);
+      }
+
+    }
   }
 
   protected abstract void updateActiveModel();

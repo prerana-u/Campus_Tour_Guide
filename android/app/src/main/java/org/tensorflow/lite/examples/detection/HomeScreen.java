@@ -10,6 +10,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.sqlite.SQLiteDatabase;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
@@ -31,6 +32,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import org.tensorflow.lite.examples.detection.data.DatabaseHandler;
+
 public class HomeScreen extends AppCompatActivity {
 
     FusedLocationProviderClient mFusedLocationClient;
@@ -49,6 +52,7 @@ public class HomeScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_screen);
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+        DatabaseHandler db = new DatabaseHandler(this);
         // arbtn=findViewById(R.id.arButton);
         // method to get the location
         getLastLocation();

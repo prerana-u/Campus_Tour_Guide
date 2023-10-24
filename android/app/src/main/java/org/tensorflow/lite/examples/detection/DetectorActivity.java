@@ -309,7 +309,7 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
                                 public void run() {
 
                                     showFrameInfo(title);
-                                    showInference(lastProcessingTimeMs + "ms");
+                                    showInference(title);
 //                                    try {
 //                                        Thread.sleep(5000);
 //                                    } catch (InterruptedException e) {
