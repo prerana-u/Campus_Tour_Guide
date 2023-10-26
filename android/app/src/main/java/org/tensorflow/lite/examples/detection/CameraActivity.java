@@ -58,6 +58,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
@@ -109,16 +110,17 @@ public abstract class CameraActivity extends AppCompatActivity
   private ImageView plusImageView, minusImageView;
   protected ListView deviceView;
   protected TextView threadsTextView;
-  RecyclerView rv,rv1;
+  RecyclerView rv,rv1,rv2;
   protected ListView modelView;
   /** Current indices of device and model. */
   int currentDevice = -1;
   int currentModel = -1;
   int currentNumThreads = -1;
 
-  ImageButton arrow,arrow1;
-  LinearLayout hiddenView,hiddenView1;
-  CardView cardView,cardView1;
+  ImageButton arrow,arrow1,arrow2;
+  LinearLayout hiddenView,hiddenView2;
+  LinearLayout hiddenView1;
+  CardView cardView,cardView1,cardView2;
   ArrayList<ListData> modelArrayList;
   ArrayList<String> deviceStrings = new ArrayList<String>();
 
@@ -138,10 +140,10 @@ public abstract class CameraActivity extends AppCompatActivity
     db= new DatabaseHandler(this);
     rv = findViewById(R.id.officedatarv);
     rv1=findViewById(R.id.officedatarv1);
-    rv.setNestedScrollingEnabled(false);
+    rv2=findViewById(R.id.officedatarv2);
+  //  rv.setNestedScrollingEnabled(false);
     rv.setHasFixedSize(false);
-    rv1.setNestedScrollingEnabled(false);
-    rv1.setHasFixedSize(false);
+
     modelArrayList = new ArrayList<ListData>();
 
     if (hasPermission()) {
@@ -155,6 +157,9 @@ public abstract class CameraActivity extends AppCompatActivity
     cardView1 = findViewById(R.id.base_cardview1);
     arrow1 = findViewById(R.id.arrow_button1);
     hiddenView1 = findViewById(R.id.hidden_view1);
+    cardView2 = findViewById(R.id.base_cardview2);
+    arrow2 = findViewById(R.id.arrow_button2);
+    hiddenView2 = findViewById(R.id.hidden_view2);
 
     //dropdown code
     arrow.setOnClickListener(view -> {
@@ -176,7 +181,10 @@ public abstract class CameraActivity extends AppCompatActivity
         hiddenView.setVisibility(View.VISIBLE);
         hiddenView1.setVisibility(View.GONE);
         type="office";
+        hiddenView2.setVisibility(View.GONE);
         arrow.setImageResource(R.drawable.baseline_keyboard_arrow_up_24);
+        arrow1.setImageResource(R.drawable.baseline_keyboard_arrow_down_24);
+        arrow2.setImageResource(R.drawable.baseline_keyboard_arrow_down_24);
       }
     });
 
@@ -197,11 +205,38 @@ public abstract class CameraActivity extends AppCompatActivity
         TransitionManager.beginDelayedTransition(cardView1, new AutoTransition());
         hiddenView1.setVisibility(View.VISIBLE);
         hiddenView.setVisibility(View.GONE);
+        hiddenView2.setVisibility(View.GONE);
         arrow1.setImageResource(R.drawable.baseline_keyboard_arrow_up_24);
+        arrow.setImageResource(R.drawable.baseline_keyboard_arrow_down_24);
+        arrow2.setImageResource(R.drawable.baseline_keyboard_arrow_down_24);
         type="department";
       }
     });
 
+    arrow2.setOnClickListener(view -> {
+
+      if (hiddenView2.getVisibility() == View.VISIBLE) {
+        // The transition of the hiddenView is carried out by the TransitionManager class.
+        // Here we use an object of the AutoTransition Class to create a default transition
+        TransitionManager.beginDelayedTransition(cardView2, new AutoTransition());
+        hiddenView2.setVisibility(View.GONE);
+        arrow2.setImageResource(R.drawable.baseline_keyboard_arrow_down_24);
+
+      }
+
+      // If the CardView is not expanded, set its visibility to
+      // visible and change the expand more icon to expand less.
+      else {
+        TransitionManager.beginDelayedTransition(cardView2, new AutoTransition());
+        hiddenView2.setVisibility(View.VISIBLE);
+        hiddenView1.setVisibility(View.GONE);
+        hiddenView.setVisibility(View.GONE);
+        arrow2.setImageResource(R.drawable.baseline_keyboard_arrow_up_24);
+        arrow1.setImageResource(R.drawable.baseline_keyboard_arrow_down_24);
+        arrow.setImageResource(R.drawable.baseline_keyboard_arrow_down_24);
+        type="others";
+      }
+    });
 
     threadsTextView = findViewById(R.id.threads);
     currentNumThreads = Integer.parseInt(threadsTextView.getText().toString().trim());
@@ -719,9 +754,13 @@ public abstract class CameraActivity extends AppCompatActivity
         rv.setLayoutManager(linearLayoutManager);
         rv.setAdapter(ml);
       }
-      else {
+      else if (type.equals("department")) {
         rv1.setLayoutManager(linearLayoutManager);
         rv1.setAdapter(ml);
+      }
+      else{
+        rv2.setLayoutManager(linearLayoutManager);
+        rv2.setAdapter(ml);
       }
 
     }

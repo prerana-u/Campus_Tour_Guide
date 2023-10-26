@@ -166,6 +166,14 @@
 
             <!-- The following is the expandable portion whose visibility is initially set to 'gone'
             The parent LinearLayout contains 3 child LinearLayouts that hold a subject name and an icon each -->
+<!--            <ScrollView-->
+<!--                -->
+<!--                android:layout_width="match_parent"-->
+<!--              -->
+
+<!--                android:layout_height="match_parent">-->
+
+
             <LinearLayout
                 android:id="@+id/hidden_view"
                 android:layout_width="match_parent"
@@ -176,185 +184,51 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/fixed_layout">
+                app:layout_constraintTop_toBottomOf="@+id/fixed_layout"
+               >
 
                 <!-- Child LinearLayout 1 -->
-<!--                <LinearLayout-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_marginBottom="10dp"-->
-<!--                    android:orientation="horizontal">-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:orientation="horizontal">
 
-<!--                    <TextView-->
+                    <TextView
 
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_marginTop="10dp"-->
-<!--                        android:fontFamily="@font/inter"-->
-<!--                        android:gravity="left"-->
-<!--                        android:text="Office"-->
-<!--                        android:layout_marginLeft="20dp"-->
-<!--                        android:textColor="#424242"-->
-<!--                        android:textSize="16sp"-->
-<!--                        android:textStyle="bold" />-->
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="@font/inter"
+                        android:gravity="left"
+                        android:text="Office"
+                        android:layout_marginLeft="20dp"
+                        android:textColor="#424242"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
 
-<!--                    <TextView-->
+                    <TextView
 
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_marginTop="10dp"-->
-<!--                        android:gravity="right"-->
-<!--                        android:textSize="16sp"-->
-<!--                        android:textStyle="bold"-->
-<!--                        android:fontFamily="@font/inter"-->
-<!--                        android:text="Room No."-->
-<!--                        android:textColor="#424242"-->
-<!--                        android:layout_marginRight="20dp"-->
-<!--                        />-->
-<!--                </LinearLayout>-->
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:gravity="right"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:fontFamily="@font/inter"
+                        android:text="Room No."
+                        android:textColor="#424242"
+                        android:layout_marginRight="20dp"
+                        />
+                </LinearLayout>
 
-<!--                &lt;!&ndash; Child LinearLayout 2 &ndash;&gt;-->
-<!--                <LinearLayout-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-
-<!--                    android:orientation="horizontal">-->
-<!--                    <TextView-->
-
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_marginTop="10dp"-->
-<!--                        android:textSize="14sp"-->
-<!--                        android:text="Office of Examinations"-->
-<!--                        android:gravity="left"-->
-<!--                        android:fontFamily="@font/inter"-->
-<!--                        android:textColor="@android:color/black" />-->
-
-<!--                    <TextView-->
-
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_marginTop="10dp"-->
-<!--                        android:gravity="right"-->
-<!--                        android:fontFamily="@font/inter"-->
-<!--                        android:textSize="14sp"-->
-<!--                        android:text="Ground Floor: 001"-->
-<!--                        android:textColor="@android:color/black" />-->
-<!--                </LinearLayout>-->
-
-
-<!--                <LinearLayout-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:orientation="horizontal">-->
-<!--                    <TextView-->
-
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_marginTop="10dp"-->
-<!--                        android:textSize="14sp"-->
-<!--                        android:fontFamily="@font/inter"-->
-<!--                        android:text="Office of International Affairs "-->
-<!--                        android:gravity="left"-->
-<!--                        android:textColor="@android:color/black" />-->
-
-<!--                    <TextView-->
-
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_marginTop="10dp"-->
-<!--                        android:gravity="right"-->
-<!--                        android:fontFamily="@font/inter"-->
-<!--                        android:textSize="14sp"-->
-<!--                        android:text="Ground Floor: 013"-->
-<!--                        android:textColor="@android:color/black" />-->
-<!--                </LinearLayout>-->
-<!--                <LinearLayout-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:orientation="horizontal">-->
-<!--                    <TextView-->
-
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_marginTop="10dp"-->
-<!--                        android:textSize="14sp"-->
-<!--                        android:fontFamily="@font/inter"-->
-<!--                        android:text="Scholarship and Fellowship\nSupport Cell "-->
-<!--                        android:gravity="left"-->
-<!--                        android:textColor="@android:color/black" />-->
-
-<!--                    <TextView-->
-
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_marginTop="15dp"-->
-<!--                        android:gravity="right"-->
-<!--                        android:fontFamily="@font/inter"-->
-<!--                        android:textSize="14sp"-->
-<!--                        android:text="Ground Floor: 014"-->
-<!--                        android:textColor="@android:color/black" />-->
-<!--                </LinearLayout>-->
-<!--                <LinearLayout-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:orientation="horizontal">-->
-<!--                    <TextView-->
-
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_marginTop="10dp"-->
-<!--                        android:textSize="14sp"-->
-<!--                        android:fontFamily="@font/inter"-->
-<!--                        android:text="Associate Director Office \nof International Affairs "-->
-<!--                        android:gravity="left"-->
-<!--                        android:textColor="@android:color/black" />-->
-
-<!--                    <TextView-->
-
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_marginTop="15dp"-->
-<!--                        android:gravity="right"-->
-<!--                        android:fontFamily="@font/inter"-->
-<!--                        android:textSize="14sp"-->
-<!--                        android:text="Ground Floor: 015"-->
-<!--                        android:textColor="@android:color/black" />-->
-
-<!--                </LinearLayout>-->
-<!--                <LinearLayout-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:orientation="horizontal">-->
-<!--                    <TextView-->
-
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_marginTop="10dp"-->
-<!--                        android:textSize="14sp"-->
-<!--                        android:fontFamily="@font/inter"-->
-<!--                        android:text="Dean's Office - School of \nArts and Humanities"-->
-<!--                        android:gravity="left"-->
-<!--                        android:textColor="@android:color/black" />-->
-
-<!--                    <TextView-->
-
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_marginTop="15dp"-->
-<!--                        android:gravity="right"-->
-<!--                        android:fontFamily="@font/inter"-->
-<!--                        android:textSize="14sp"-->
-<!--                        android:text="Ground Floor: 016"-->
-<!--                        android:textColor="@android:color/black" />-->
-
-<!--                </LinearLayout>-->
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/officedatarv"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="200dp"
                     android:layout_marginTop="30dp"/>
             </LinearLayout>
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
@@ -478,66 +352,10 @@
                         android:textColor="#424242" />
                 </LinearLayout>
 
-                <!-- Child LinearLayout 2 -->
-<!--                <LinearLayout-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:orientation="horizontal">-->
-<!--                    <TextView-->
-
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_marginTop="10dp"-->
-<!--                        android:textSize="14sp"-->
-<!--                        android:text="Department of Life sciences"-->
-<!--                        android:fontFamily="@font/inter"-->
-<!--                        android:gravity="left"-->
-<!--                        android:textColor="@android:color/black" />-->
-
-<!--                    <TextView-->
-
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_marginTop="10dp"-->
-<!--                        android:gravity="right"-->
-<!--                        android:fontFamily="@font/inter"-->
-<!--                        android:textSize="14sp"-->
-<!--                        android:text="Ground Floor: 001"-->
-<!--                        android:textColor="@android:color/black" />-->
-<!--                </LinearLayout>-->
-
-
-<!--                <LinearLayout-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:orientation="horizontal">-->
-<!--                    <TextView-->
-
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_marginTop="10dp"-->
-<!--                        android:textSize="14sp"-->
-<!--                        android:text="Department of Chemistry"-->
-<!--                        android:fontFamily="@font/inter"-->
-<!--                        android:gravity="left"-->
-<!--                        android:textColor="@android:color/black" />-->
-
-<!--                    <TextView-->
-
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_marginTop="10dp"-->
-<!--                        android:gravity="right"-->
-<!--                        android:fontFamily="@font/inter"-->
-<!--                        android:textSize="14sp"-->
-<!--                        android:text="Ground Floor: 013"-->
-<!--                        android:textColor="@android:color/black" />-->
-<!--                </LinearLayout>-->
-
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/officedatarv1"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="200dp"
                     android:layout_marginTop="30dp"/>
 
             </LinearLayout>
@@ -545,8 +363,132 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 
+    <androidx.cardview.widget.CardView
+        android:id="@+id/base_cardview2"
+        style="@style/Base.CardView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.473"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.021">
 
-    <RelativeLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@+id/base_cardview2"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.511"
+            tools:layout_editor_absoluteX="-55dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/fixed_layout2"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
+
+
+        <!-- This is ImageButton for the expansion icon -->
+
+        <TextView
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="Others"
+            android:textColor="#197B80"
+            android:textSize="18sp"
+            android:fontFamily="@font/inter_semibold"
+            app:layout_constraintBottom_toBottomOf="@+id/fixed_layout2"
+            app:layout_constraintEnd_toEndOf="@+id/fixed_layout2"
+            app:layout_constraintHorizontal_bias="0.084"
+            app:layout_constraintStart_toStartOf="@+id/fixed_layout2"
+            app:layout_constraintTop_toTopOf="@+id/fixed_layout2"
+            app:layout_constraintVertical_bias="0.421" />
+
+        <ImageButton
+            android:id="@+id/arrow_button2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:background="@null"
+            android:src="@drawable/baseline_keyboard_arrow_down_24"
+            app:layout_constraintBottom_toBottomOf="@id/fixed_layout2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.953"
+            app:layout_constraintStart_toStartOf="parent"
+
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- The following is the expandable portion whose visibility is initially set to 'gone'
+    The parent LinearLayout contains 3 child LinearLayouts that hold a subject name and an icon each -->
+    <LinearLayout
+        android:id="@+id/hidden_view2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone"
+        android:paddingHorizontal="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fixed_layout2">
+
+        <!-- Child LinearLayout 1 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal">
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:textSize="16sp"
+                android:text="Room"
+                android:layout_marginLeft="20dp"
+                android:fontFamily="@font/inter"
+                android:gravity="left"
+
+                android:textStyle="bold"
+                android:textColor="#424242" />
+
+            <TextView
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="right"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:fontFamily="@font/inter"
+                android:text="Room No."
+                android:layout_marginRight="20dp"
+                android:textColor="#424242" />
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/officedatarv2"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginTop="30dp"/>
+
+    </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+<RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"

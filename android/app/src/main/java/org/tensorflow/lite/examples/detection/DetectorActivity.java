@@ -293,7 +293,7 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
                     tracker.trackResults(mappedRecognitions, currTimestamp);
                     trackingOverlay.postInvalidate();
                     computingDetection = false;
-                    if(bestResult != null && bestResult.getConfidence()>0.7f)
+                    if(bestResult != null && bestResult.getConfidence()>0.70f)
                     {
                         //showFrameInfo(title);
 
