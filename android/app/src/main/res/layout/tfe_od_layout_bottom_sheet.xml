@@ -191,7 +191,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
+
                     android:orientation="horizontal">
 
                     <TextView
@@ -225,7 +225,7 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/officedatarv"
                     android:layout_width="match_parent"
-                    android:layout_height="200dp"
+                    android:layout_height="150dp"
                     android:layout_marginTop="30dp"/>
             </LinearLayout>
 
@@ -322,7 +322,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
+
                     android:orientation="horizontal">
                     <TextView
 
@@ -355,7 +355,7 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/officedatarv1"
                     android:layout_width="match_parent"
-                    android:layout_height="200dp"
+                    android:layout_height="150dp"
                     android:layout_marginTop="30dp"/>
 
             </LinearLayout>
@@ -448,7 +448,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
+
             android:orientation="horizontal">
             <TextView
 
@@ -481,65 +481,22 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/officedatarv2"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="150dp"
             android:layout_marginTop="30dp"/>
 
     </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 
-<RelativeLayout
+    <ImageView
+        android:id="@+id/capimage"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:orientation="horizontal"
-        android:visibility="invisible">
+        android:layout_height="match_parent">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="Threads"
-            android:textColor="@android:color/black" />
+    </ImageView>
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:background="@drawable/rectangle"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:padding="4dp">
 
-            <ImageView
-                android:id="@+id/minus"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_baseline_remove" />
 
-            <TextView
-                android:id="@+id/threads"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:text="1"
-                android:textColor="@android:color/black"
-                android:textSize="14sp" />
-
-            <ImageView
-                android:id="@+id/plus"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_baseline_add" />
-        </LinearLayout>
-    </RelativeLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:layout_marginTop="10dp"
-        android:background="@android:color/darker_gray" />
 
     <!-- TODO(b/112541284): Unhide when new NNAPI delegate is used. -->
 
@@ -560,10 +517,5 @@
             android:layout_height="wrap_content" />
     </LinearLayout>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:layout_marginTop="10dp"
-        android:background="@android:color/darker_gray" />
 
 </LinearLayout>

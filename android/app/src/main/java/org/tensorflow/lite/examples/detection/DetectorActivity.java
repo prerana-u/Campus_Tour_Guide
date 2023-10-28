@@ -308,7 +308,7 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
                                 @Override
                                 public void run() {
 
-                                    showFrameInfo(title);
+                                    showFrameInfo(title,croppedBitmap);
                                     showInference(title);
 //                                    try {
 //                                        Thread.sleep(5000);

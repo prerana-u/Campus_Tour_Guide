@@ -23,6 +23,8 @@ import android.app.Fragment;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.content.res.AssetManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.hardware.Camera;
 import android.hardware.camera2.CameraAccessException;
 import android.hardware.camera2.CameraCharacteristics;
@@ -81,7 +83,7 @@ public abstract class CameraActivity extends AppCompatActivity
   private static final Logger LOGGER = new Logger();
 
   private static final int PERMISSIONS_REQUEST = 1;
-
+  ImageView capimg;
   private static final String PERMISSION_CAMERA = Manifest.permission.CAMERA;
   private static final String ASSET_PATH = "";
   protected int previewWidth = 0;
@@ -141,6 +143,7 @@ public abstract class CameraActivity extends AppCompatActivity
     rv = findViewById(R.id.officedatarv);
     rv1=findViewById(R.id.officedatarv1);
     rv2=findViewById(R.id.officedatarv2);
+    capimg=findViewById(R.id.capimage);
   //  rv.setNestedScrollingEnabled(false);
     rv.setHasFixedSize(false);
 
@@ -238,10 +241,10 @@ public abstract class CameraActivity extends AppCompatActivity
       }
     });
 
-    threadsTextView = findViewById(R.id.threads);
-    currentNumThreads = Integer.parseInt(threadsTextView.getText().toString().trim());
-    plusImageView = findViewById(R.id.plus);
-    minusImageView = findViewById(R.id.minus);
+  //  threadsTextView = findViewById(R.id.threads);
+   // currentNumThreads = Integer.parseInt(threadsTextView.getText().toString().trim());
+  //  plusImageView = findViewById(R.id.plus);
+ //   minusImageView = findViewById(R.id.minus);
     deviceView = findViewById(R.id.device_list);
     deviceStrings.add("CPU");
     deviceStrings.add("GPU");
@@ -446,6 +449,8 @@ public abstract class CameraActivity extends AppCompatActivity
       Trace.beginSection("imageAvailable");
       final Plane[] planes = image.getPlanes();
       fillBytes(planes, yuvBytes);
+
+
       yRowStride = planes[0].getRowStride();
       final int uvRowStride = planes[1].getRowStride();
       final int uvPixelStride = planes[1].getPixelStride();
@@ -718,7 +723,7 @@ public abstract class CameraActivity extends AppCompatActivity
 //    }
   }
 
-  protected void showFrameInfo(String frameInfo) {
+  protected void showFrameInfo(String frameInfo, Bitmap bitmap) {
 
     titleTextView.setText(frameInfo);
     if(frameInfo.equals("Central Block"))
@@ -733,6 +738,7 @@ public abstract class CameraActivity extends AppCompatActivity
       cropValueTextView.setText("2");
      // cardView.setVisibility(View.VISIBLE);
     }
+    capimg.setImageBitmap(bitmap);
   }
 
   protected void showCropInfo() {
