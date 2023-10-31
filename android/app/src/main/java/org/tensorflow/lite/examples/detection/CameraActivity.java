@@ -21,12 +21,14 @@ import static com.google.android.material.bottomsheet.BottomSheetBehavior.STATE_
 import android.Manifest;
 import android.app.Fragment;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.hardware.Camera;
 import android.hardware.camera2.CameraAccessException;
+import android.hardware.camera2.CameraCaptureSession;
 import android.hardware.camera2.CameraCharacteristics;
 import android.hardware.camera2.CameraManager;
 import android.hardware.camera2.params.StreamConfigurationMap;
@@ -55,6 +57,7 @@ import android.view.ViewTreeObserver;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -65,6 +68,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
@@ -81,7 +86,7 @@ public abstract class CameraActivity extends AppCompatActivity
 //        CompoundButton.OnCheckedChangeListener,
         View.OnClickListener {
   private static final Logger LOGGER = new Logger();
-
+  ArrayList<String> deviceStrings = new ArrayList<String>();
   private static final int PERMISSIONS_REQUEST = 1;
   ImageView capimg;
   private static final String PERMISSION_CAMERA = Manifest.permission.CAMERA;
@@ -101,32 +106,25 @@ public abstract class CameraActivity extends AppCompatActivity
   private Runnable postInferenceCallback;
   private Runnable imageConverter;
   protected ArrayList<String> modelStrings = new ArrayList<String>();
-
+  Button btn;
   private LinearLayout bottomSheetLayout,layout1;
   private LinearLayout gestureLayout;
-  public String type="";
+
   private BottomSheetBehavior<LinearLayout> sheetBehavior;
-  DatabaseHandler db;
+
   protected TextView frameValueTextView, titleTextView, cropValueTextView, inferenceTimeTextView;
   protected ImageView bottomSheetArrowImageView;
   private ImageView plusImageView, minusImageView;
   protected ListView deviceView;
   protected TextView threadsTextView;
-  RecyclerView rv,rv1,rv2;
   protected ListView modelView;
   /** Current indices of device and model. */
   int currentDevice = -1;
   int currentModel = -1;
   int currentNumThreads = -1;
 
-  ImageButton arrow,arrow1,arrow2;
-  LinearLayout hiddenView,hiddenView2;
-  LinearLayout hiddenView1;
-  CardView cardView,cardView1,cardView2;
-  ArrayList<ListData> modelArrayList;
-  ArrayList<String> deviceStrings = new ArrayList<String>();
+  String blockname="";
 
-  MyListAdapter ml;
 
   @Override
   protected void onCreate(final Bundle savedInstanceState) {
@@ -138,114 +136,22 @@ public abstract class CameraActivity extends AppCompatActivity
     Toolbar toolbar = findViewById(R.id.toolbar);
     setSupportActionBar(toolbar);
     getSupportActionBar().setDisplayShowTitleEnabled(false);
-
-    db= new DatabaseHandler(this);
-    rv = findViewById(R.id.officedatarv);
-    rv1=findViewById(R.id.officedatarv1);
-    rv2=findViewById(R.id.officedatarv2);
-    capimg=findViewById(R.id.capimage);
-  //  rv.setNestedScrollingEnabled(false);
-    rv.setHasFixedSize(false);
-
-    modelArrayList = new ArrayList<ListData>();
-
     if (hasPermission()) {
       setFragment();
     } else {
       requestPermission();
     }
-    cardView = findViewById(R.id.base_cardview);
-    arrow = findViewById(R.id.arrow_button);
-    hiddenView = findViewById(R.id.hidden_view);
-    cardView1 = findViewById(R.id.base_cardview1);
-    arrow1 = findViewById(R.id.arrow_button1);
-    hiddenView1 = findViewById(R.id.hidden_view1);
-    cardView2 = findViewById(R.id.base_cardview2);
-    arrow2 = findViewById(R.id.arrow_button2);
-    hiddenView2 = findViewById(R.id.hidden_view2);
+    btn=findViewById(R.id.infobtn);
+   // capimg=findViewById(R.id.capimage);
+  //  rv.setNestedScrollingEnabled(false);
 
-    //dropdown code
-    arrow.setOnClickListener(view -> {
-      // If the CardView is already expanded, set its visibility
-      // to gone and change the expand less icon to expand more.
-      if (hiddenView.getVisibility() == View.VISIBLE) {
-        // The transition of the hiddenView is carried out by the TransitionManager class.
-        // Here we use an object of the AutoTransition Class to create a default transition
-        TransitionManager.beginDelayedTransition(cardView, new AutoTransition());
-        hiddenView.setVisibility(View.GONE);
-        arrow.setImageResource(R.drawable.baseline_keyboard_arrow_down_24);
-
-      }
-
-      // If the CardView is not expanded, set its visibility to
-      // visible and change the expand more icon to expand less.
-      else {
-        TransitionManager.beginDelayedTransition(cardView, new AutoTransition());
-        hiddenView.setVisibility(View.VISIBLE);
-        hiddenView1.setVisibility(View.GONE);
-        type="office";
-        hiddenView2.setVisibility(View.GONE);
-        arrow.setImageResource(R.drawable.baseline_keyboard_arrow_up_24);
-        arrow1.setImageResource(R.drawable.baseline_keyboard_arrow_down_24);
-        arrow2.setImageResource(R.drawable.baseline_keyboard_arrow_down_24);
-      }
-    });
-
-    arrow1.setOnClickListener(view -> {
-
-      if (hiddenView1.getVisibility() == View.VISIBLE) {
-        // The transition of the hiddenView is carried out by the TransitionManager class.
-        // Here we use an object of the AutoTransition Class to create a default transition
-        TransitionManager.beginDelayedTransition(cardView1, new AutoTransition());
-        hiddenView1.setVisibility(View.GONE);
-        arrow1.setImageResource(R.drawable.baseline_keyboard_arrow_down_24);
-
-      }
-
-      // If the CardView is not expanded, set its visibility to
-      // visible and change the expand more icon to expand less.
-      else {
-        TransitionManager.beginDelayedTransition(cardView1, new AutoTransition());
-        hiddenView1.setVisibility(View.VISIBLE);
-        hiddenView.setVisibility(View.GONE);
-        hiddenView2.setVisibility(View.GONE);
-        arrow1.setImageResource(R.drawable.baseline_keyboard_arrow_up_24);
-        arrow.setImageResource(R.drawable.baseline_keyboard_arrow_down_24);
-        arrow2.setImageResource(R.drawable.baseline_keyboard_arrow_down_24);
-        type="department";
-      }
-    });
-
-    arrow2.setOnClickListener(view -> {
-
-      if (hiddenView2.getVisibility() == View.VISIBLE) {
-        // The transition of the hiddenView is carried out by the TransitionManager class.
-        // Here we use an object of the AutoTransition Class to create a default transition
-        TransitionManager.beginDelayedTransition(cardView2, new AutoTransition());
-        hiddenView2.setVisibility(View.GONE);
-        arrow2.setImageResource(R.drawable.baseline_keyboard_arrow_down_24);
-
-      }
-
-      // If the CardView is not expanded, set its visibility to
-      // visible and change the expand more icon to expand less.
-      else {
-        TransitionManager.beginDelayedTransition(cardView2, new AutoTransition());
-        hiddenView2.setVisibility(View.VISIBLE);
-        hiddenView1.setVisibility(View.GONE);
-        hiddenView.setVisibility(View.GONE);
-        arrow2.setImageResource(R.drawable.baseline_keyboard_arrow_up_24);
-        arrow1.setImageResource(R.drawable.baseline_keyboard_arrow_down_24);
-        arrow.setImageResource(R.drawable.baseline_keyboard_arrow_down_24);
-        type="others";
-      }
-    });
 
   //  threadsTextView = findViewById(R.id.threads);
    // currentNumThreads = Integer.parseInt(threadsTextView.getText().toString().trim());
   //  plusImageView = findViewById(R.id.plus);
  //   minusImageView = findViewById(R.id.minus);
     deviceView = findViewById(R.id.device_list);
+
     deviceStrings.add("CPU");
     deviceStrings.add("GPU");
     deviceStrings.add("NNAPI");
@@ -344,6 +250,8 @@ public abstract class CameraActivity extends AppCompatActivity
 
 //    plusImageView.setOnClickListener(this);
 //    minusImageView.setOnClickListener(this);
+
+
   }
 
 
@@ -511,6 +419,7 @@ public abstract class CameraActivity extends AppCompatActivity
     LOGGER.d("onPause " + this);
 
     handlerThread.quitSafely();
+
     try {
       handlerThread.join();
       handlerThread = null;
@@ -723,9 +632,10 @@ public abstract class CameraActivity extends AppCompatActivity
 //    }
   }
 
-  protected void showFrameInfo(String frameInfo, Bitmap bitmap) {
+  protected void showFrameInfo(String frameInfo, Bitmap bitmap){
 
     titleTextView.setText(frameInfo);
+    blockname=frameInfo;
     if(frameInfo.equals("Central Block"))
     {
       frameValueTextView.setText("2010");
@@ -738,7 +648,10 @@ public abstract class CameraActivity extends AppCompatActivity
       cropValueTextView.setText("2");
      // cardView.setVisibility(View.VISIBLE);
     }
-    capimg.setImageBitmap(bitmap);
+
+    BitmapData.getInstance().setBitmap(bitmap);
+    btn.setVisibility(View.VISIBLE);
+
   }
 
   protected void showCropInfo() {
@@ -746,30 +659,14 @@ public abstract class CameraActivity extends AppCompatActivity
   }
 
   protected void showInference(String blockname) {
-    List<Building_Info> data = db.getAllBuilding_Info(blockname.toLowerCase(),type);
-    modelArrayList.clear();
-    for (Building_Info cn : data) {
-
-     // Toast.makeText(getApplicationContext(),cn.getName(),Toast.LENGTH_SHORT).show();
-      modelArrayList.add(new ListData(cn.getName(),cn.getRoomNo()));
-      ml = new MyListAdapter( modelArrayList);
-
-      LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
-      if (type.equals("office"))
-      {
-        rv.setLayoutManager(linearLayoutManager);
-        rv.setAdapter(ml);
+    btn.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+         Intent i= new Intent(CameraActivity.this,DisplayActivity.class);
+         i.putExtra("blockname",blockname);
+         startActivity(i);
       }
-      else if (type.equals("department")) {
-        rv1.setLayoutManager(linearLayoutManager);
-        rv1.setAdapter(ml);
-      }
-      else{
-        rv2.setLayoutManager(linearLayoutManager);
-        rv2.setAdapter(ml);
-      }
-
-    }
+    });
   }
 
   protected abstract void updateActiveModel();

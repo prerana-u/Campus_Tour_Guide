@@ -16,6 +16,7 @@
 
 package org.tensorflow.lite.examples.detection;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
 import android.graphics.Canvas;
@@ -274,7 +275,6 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
                             final RectF location = bestResult.getLocation();
                             if (location != null && bestResult.getConfidence() >= minimumConfidence) {
                                 canvas1.drawRect(location, paint);
-
                                 cropToFrameTransform.mapRect(location);
                                 Log.d("bestResult", bestResult.getTitle());
                                 bestResult.setLocation(location);
@@ -296,7 +296,12 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
                     if(bestResult != null && bestResult.getConfidence()>0.70f)
                     {
                         //showFrameInfo(title);
-
+//                        try {
+//
+//                                Thread.sleep(5000);
+//                            } catch (InterruptedException e) {
+//                                throw new RuntimeException(e);
+//                            }
                         title=bestResult.getTitle();
                         showCropInfo();
 
@@ -307,9 +312,11 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
                             new Runnable() {
                                 @Override
                                 public void run() {
-
                                     showFrameInfo(title,croppedBitmap);
-                                    showInference(title);
+//                                    Intent i= new Intent(DetectorActivity.this,DisplayActivity.class);
+//                                     i.putExtra("blockname",blockname);
+//                                     startActivity(i);
+                                     showInference(title);
 //                                    try {
 //                                        Thread.sleep(5000);
 //                                    } catch (InterruptedException e) {
@@ -318,11 +325,11 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
                                 }
                             });
 
-                    try {
-                        Thread.sleep(3000);
-                    } catch (InterruptedException e) {
-                        throw new RuntimeException(e);
-                    }
+//                    try {
+//                        Thread.sleep(3000);
+//                    } catch (InterruptedException e) {
+//                        throw new RuntimeException(e);
+//                    }
                 });
     }
 
